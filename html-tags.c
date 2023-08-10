@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
+
 #define MAX_TAGS 100
 #define MAX_TAG_LENGTH 50
 
