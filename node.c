@@ -10,14 +10,20 @@ typedef struct node {
  
 int maxDepth(t_node* node)
 {
+	/* NULL error check */
     if (node == NULL)
         return (0);
     else 
 	{
+		/* Get left and right depths */
         int lDepth = maxDepth(node->left);
         int rDepth = maxDepth(node->right);
+
+		/* If left > right => left + 1 */
         if (lDepth > rDepth)
             return (lDepth + 1);
+
+		/* If left < right => right + 1 */
         else
             return (rDepth + 1);
     }
@@ -26,6 +32,7 @@ int maxDepth(t_node* node)
 t_node* newNode(int data)
 {
     t_node* node;
+
     node = malloc(sizeof(t_node));
     node->data = data;
     node->left = NULL;
