@@ -1,14 +1,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
- 
+
 typedef struct node {
     int 	data;
     struct 	node* left;
     struct 	node* right;
 }	t_node;
  
-int maxDepth(t_node* node)
+int maxDepth(t_node *node)
 {
 	/* NULL error check */
     if (node == NULL)
@@ -28,11 +28,37 @@ int maxDepth(t_node* node)
             return (rDepth + 1);
     }
 }
+
+int totalNodes(t_node* node)
+{
+    if (node == NULL)
+        return (0);
+    else 
+	{
+        int lDepth = totalNodes(node->left);
+        int rDepth = totalNodes(node->right);
+		return (lDepth + rDepth + 1); // for total nodes
+    }
+}
+int searchValue(t_node* node, int value)
+{
+    if (node == NULL)
+        return (0);
+    else 
+	{
+		if (node->data == value)
+			return (1);
+        int lDepth = searchValue(node->left, value);
+        int rDepth = searchValue(node->right, value);
+		if (lDepth || rDepth)
+			return (1);
+		return (0);
+    }
+}
  
 t_node* newNode(int data)
 {
     t_node* node;
-
     node = malloc(sizeof(t_node));
     node->data = data;
     node->left = NULL;
@@ -53,6 +79,8 @@ int main()
 	root->right->right = newNode(7);
 	root->right->right->left = newNode(8);
 	root->right->right->left->right = newNode(9);
-    printf("Depth of Btree is %d\n", maxDepth(root));
+    printf("Max depth: %d\n", maxDepth(root));
+	printf("Total amount of nodes: %d\n", totalNodes(root));
+	printf("Search result: %d\n", searchValue(root, 0));
     return (0);
 }
